@@ -28,9 +28,8 @@ function playRPSWithPrompt(getName) {
     const username = getName();
     const playersChoice = prompt("Enter your choice (Rock, Paper or Scissors):").toLowerCase();
 
-    if (playersChoice !== "rock" || playersChoice !== "paper" || playersChoice !== "scissors") {
-        alert(`Sorry ${username}, that was an invalid choice. Please enter Rock Paper or Scissors`)
-        return;
+    if (!["rock", "paper", "scissors"].includes(playersChoice)) {
+        return alert(`Sorry ${username} that was an invalid choice, pleasae enter Rock, Paper or Scissors`);
     }
 
     const computerChoice = getComputerChoice();
