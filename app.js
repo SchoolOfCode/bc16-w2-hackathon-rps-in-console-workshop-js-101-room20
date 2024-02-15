@@ -11,3 +11,10 @@ function getComputerChoice() {
     return choices[randomIndex];
 }
 
+function determineWinner(playersChoice, computerChoice, username) {
+    if(playersChoice === computerChoice) {
+    return `It's a tie! ${username} try again!`}
+        if(playersChoice === "rock" && computerChoice === "scissors" 
+}
+
+
