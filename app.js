@@ -12,9 +12,34 @@ function getComputerChoice() {
 }
 
 function determineWinner(playersChoice, computerChoice, username) {
-    if(playersChoice === computerChoice) {
-    return `It's a tie! ${username} try again!`}
-        if(playersChoice === "rock" && computerChoice === "scissors" 
+    if (playersChoice === computerChoice) {
+        return `You tied with the computer, unlucky!`
+    }
+    
+    if (playersChoice === "rock" && computerChoice === "scissors" || playersChoice === "scissors" && computerChoice === "paper" || 
+    playersChoice === "paper" && computerChoice === "rock") {
+        return `Congratulations ${username}, you beat the computer!`
+    } else {
+        return `Bad luck ${username}, the computer beat you!`
+    }
+}
+
+function playRPSWithPrompt(getName) {
+    const username = getName();
+    const playersChoice = prompt("Enter your choice (Rock, Paper or Scissors):").toLowerCase();
+
+    if (playersChoice !== "rock" || playersChoice !== "paper" || playersChoice !== "scissors") {
+        alert(`Sorry ${username}, that was an invalid choice. Please enter Rock Paper or Scissors`)
+        return;
+    }
+
+    const computerChoice = getComputerChoice();
+    const resultMessage = 
+    `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` + 
+    determineWinner(playersChoice, computerChoice, username)
+    
+    alert(resultMessage);
 }
 
 
+playRPSWithPrompt(getName)
