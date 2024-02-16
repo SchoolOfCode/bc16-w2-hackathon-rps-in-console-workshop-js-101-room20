@@ -42,7 +42,7 @@ function playRPSWithPrompt(getName) {
      
      const playAgain = confirm("Do you want to play again?");
      if (playAgain) {
-         playRPSWithPrompt(); 
+         playRPSWithPrompt(getName);
          alert("Thanks for playing!");
      }
 }
