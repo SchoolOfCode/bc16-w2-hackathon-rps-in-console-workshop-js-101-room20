@@ -50,9 +50,16 @@ function playRPSWithPrompt(getName) {
   let playAgain = true;
 
   while (playAgain) {
-    const playersChoice = prompt(
+    let playersChoice = "";
+    const getPlayersChoice = prompt(
       "Enter your choice (Rock, Paper or Scissors):"
-    ).toLowerCase();
+    );
+
+    if (getPlayersChoice === null || getPlayersChoice === "") {
+      return alert(`You didn't enter a valid choice, please refresh the game to try again`);
+    } else {
+      playersChoice = getPlayersChoice.toLowerCase();
+    }
 
     if (!["rock", "paper", "scissors"].includes(playersChoice)) {
       return alert(
