@@ -1,4 +1,5 @@
 let score = 0;
+const choices = ["rock", "paper", "scissors", "dynamite"];
 
 function adjustScore(result) {
   if (result === "win") {
@@ -11,16 +12,39 @@ function adjustScore(result) {
 }
 
 function getName() {
-  let username = "";
-  username = prompt(
-    `Welcome to Rock, Paper, Scissors! Please enter your name to start playing`
+  let username = prompt(
+    `Welcome to ${choices.join(", ")} Please enter your name to start playing`
   );
+
+  while (username === null || username.trim() === "" || !/^[a-zA-Z]/.test(username)) {
+    if (username !== null) {
+      alert("Please enter a valid username that starts with a letter");
+    }
+    username = prompt(
+      `Welcome to ${choices.join(", ")} Please enter your name to start playing`);
+  }
   return username;
 }
 
+function getPlayerChoice() {
+  let getPlayerChoice = prompt(
+    `Enter your choice ${choices.join(", ")}:`
+  );
+
+  while (getPlayerChoice === null || getPlayerChoice.trim() === "" || !choices.includes(getPlayerChoice.toLowerCase())) {
+    if (getPlayerChoice !== null) {
+      alert(`Please enter a valid choice, either ${choices.join(", ")}`);
+    }
+    getPlayerChoice = prompt(
+      `Enter your choice ${choices.join(", ")}:`
+    );
+  }
+
+  return getPlayerChoice;
+}
+
 function getComputerChoice() {
-  const choices = ["rock", "paper", "scissors"];
-  const randomIndex = Math.floor(Math.random() * 3);
+  const randomIndex = Math.floor(Math.random() * choices.length);
   return choices[randomIndex];
 }
 
@@ -32,7 +56,8 @@ function determineWinner(playersChoice, computerChoice, username) {
   if (
     (playersChoice === "rock" && computerChoice === "scissors") ||
     (playersChoice === "scissors" && computerChoice === "paper") ||
-    (playersChoice === "paper" && computerChoice === "rock")
+    (playersChoice === "paper" && computerChoice === "rock") ||
+    (playersChoice === "dynamite" && computerChoice === "rock" || computerChoice === "scissors" || computerChoice === "paper")
   ) {
     return ["win", `Congratulations ${username}, you beat the computer!`];
   } else {
@@ -42,30 +67,10 @@ function determineWinner(playersChoice, computerChoice, username) {
 
 function playRPSWithPrompt(getName) {
   const username = getName();
-  if (username === null || username.trim() === "") {
-    return alert(
-      `The game has been stopped, please enter a username and click ok.\nRefresh the page to try again.`
-      );
-  }
   let playAgain = true;
 
   while (playAgain) {
-    let playersChoice = "";
-    const getPlayersChoice = prompt(
-      "Enter your choice (Rock, Paper or Scissors):"
-    );
-
-    if (getPlayersChoice === null || getPlayersChoice === "") {
-      return alert(`You didn't enter a valid choice, please refresh the game to try again`);
-    } else {
-      playersChoice = getPlayersChoice.toLowerCase();
-    }
-
-    if (!["rock", "paper", "scissors"].includes(playersChoice)) {
-      return alert(
-        `Sorry ${username} that was an invalid choice, please enter Rock, Paper or Scissors`
-      );
-    }
+    let playersChoice = getPlayerChoice().toLowerCase();
 
     const computerChoice = getComputerChoice();
     const [result, message] = determineWinner(playersChoice, computerChoice, username)
@@ -77,6 +82,10 @@ function playRPSWithPrompt(getName) {
       `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` + `${message}\n` + `Your score is: ${score}`;
     alert(resultMessage);
     playAgain = confirm("Do you want to play again?");
+  }
+
+  if (!playAgain) {
+    alert(`Thank you for playing ${choices.join(", ")}, ${username}\nYour final score was ${score}`);
   }
 }
 
