@@ -1,4 +1,3 @@
-let username = "";
 let score = 0;
 
 function adjustScore(result) {
@@ -12,11 +11,11 @@ function adjustScore(result) {
 }
 
 function getName() {
+  let username = "";
   username = prompt(
     `Welcome to Rock, Paper, Scissors! Please enter your name to start playing`
   );
   return username;
-    
 }
 
 function getComputerChoice() {
@@ -43,10 +42,11 @@ function determineWinner(playersChoice, computerChoice, username) {
 
 function playRPSWithPrompt(getName) {
   const username = getName();
-  if (username === null) {
-    return;
-
-}
+  if (username === null || username.trim() === "") {
+    return alert(
+      `The game has been stopped, please enter a username and click ok.\nRefresh the page to try again.`
+      );
+  }
   let playAgain = true;
 
   while (playAgain) {
