@@ -1,4 +1,15 @@
 let username = "";
+let score = 0;
+
+function adjustScore(result) {
+  if (result === "win") {
+    score += 1;
+  } else if (result === "lose") {
+    score = Math.max(0, score - 1);
+  } else if (result === "tie") {
+    return;
+  }
+}
 
 function getName() {
   username = prompt(
@@ -15,7 +26,7 @@ function getComputerChoice() {
 
 function determineWinner(playersChoice, computerChoice, username) {
   if (playersChoice === computerChoice) {
-    return `You tied with the computer, unlucky!`;
+    return ["tie", `You tied with the computer, unlucky!`];
   }
 
   if (
@@ -23,9 +34,9 @@ function determineWinner(playersChoice, computerChoice, username) {
     (playersChoice === "scissors" && computerChoice === "paper") ||
     (playersChoice === "paper" && computerChoice === "rock")
   ) {
-    return `Congratulations ${username}, you beat the computer!`;
+    return ["win", `Congratulations ${username}, you beat the computer!`];
   } else {
-    return `Bad luck ${username}, the computer beat you!`;
+    return ["lose", `Bad luck ${username}, the computer beat you!`];
   }
 }
 
@@ -45,10 +56,13 @@ function playRPSWithPrompt(getName) {
     }
 
     const computerChoice = getComputerChoice();
-    const resultMessage =
-      `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` +
-      determineWinner(playersChoice, computerChoice, username);
+    const [result, message] = determineWinner(playersChoice, computerChoice, username)
 
+    adjustScore(result);
+
+
+    const resultMessage =
+      `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` + `${message}\n` + `Your score is: ${score}`;
     alert(resultMessage);
     playAgain = confirm("Do you want to play again?");
   }
