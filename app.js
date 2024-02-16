@@ -16,6 +16,7 @@ function getName() {
     `Welcome to Rock, Paper, Scissors! Please enter your name to start playing`
   );
   return username;
+    
 }
 
 function getComputerChoice() {
@@ -42,6 +43,10 @@ function determineWinner(playersChoice, computerChoice, username) {
 
 function playRPSWithPrompt(getName) {
   const username = getName();
+  if (username === null) {
+    return;
+
+}
   let playAgain = true;
 
   while (playAgain) {
