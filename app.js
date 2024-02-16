@@ -16,28 +16,33 @@ function getName() {
     `Welcome to ${choices.join(", ")} Please enter your name to start playing`
   );
 
-  while (username === null || username.trim() === "" || !/^[a-zA-Z]/.test(username)) {
+  while (
+    username === null ||
+    username.trim() === "" ||
+    !/^[a-zA-Z]/.test(username)
+  ) {
     if (username !== null) {
       alert("Please enter a valid username that starts with a letter");
     }
     username = prompt(
-      `Welcome to ${choices.join(", ")} Please enter your name to start playing`);
+      `Welcome to ${choices.join(", ")} Please enter your name to start playing`
+    );
   }
   return username;
 }
 
 function getPlayerChoice() {
-  let getPlayerChoice = prompt(
-    `Enter your choice ${choices.join(", ")}:`
-  );
+  let getPlayerChoice = prompt(`Enter your choice ${choices.join(", ")}:`);
 
-  while (getPlayerChoice === null || getPlayerChoice.trim() === "" || !choices.includes(getPlayerChoice.toLowerCase())) {
+  while (
+    getPlayerChoice === null ||
+    getPlayerChoice.trim() === "" ||
+    !choices.includes(getPlayerChoice.toLowerCase())
+  ) {
     if (getPlayerChoice !== null) {
       alert(`Please enter a valid choice, either ${choices.join(", ")}`);
     }
-    getPlayerChoice = prompt(
-      `Enter your choice ${choices.join(", ")}:`
-    );
+    getPlayerChoice = prompt(`Enter your choice ${choices.join(", ")}:`);
   }
 
   return getPlayerChoice;
@@ -57,7 +62,9 @@ function determineWinner(playersChoice, computerChoice, username) {
     (playersChoice === "rock" && computerChoice === "scissors") ||
     (playersChoice === "scissors" && computerChoice === "paper") ||
     (playersChoice === "paper" && computerChoice === "rock") ||
-    (playersChoice === "dynamite" && computerChoice === "rock" || computerChoice === "scissors" || computerChoice === "paper")
+    (playersChoice === "dynamite" && computerChoice === "rock") ||
+    computerChoice === "scissors" ||
+    computerChoice === "paper"
   ) {
     return ["win", `Congratulations ${username}, you beat the computer!`];
   } else {
@@ -73,19 +80,28 @@ function playRPSWithPrompt(getName) {
     let playersChoice = getPlayerChoice().toLowerCase();
 
     const computerChoice = getComputerChoice();
-    const [result, message] = determineWinner(playersChoice, computerChoice, username)
+    const [result, message] = determineWinner(
+      playersChoice,
+      computerChoice,
+      username
+    );
 
     adjustScore(result);
 
-
     const resultMessage =
-      `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` + `${message}\n` + `Your score is: ${score}`;
+      `Players choice: ${playersChoice}\nComputers choice: ${computerChoice}\n` +
+      `${message}\n` +
+      `Your score is: ${score}`;
     alert(resultMessage);
     playAgain = confirm("Do you want to play again?");
   }
 
   if (!playAgain) {
-    alert(`Thank you for playing ${choices.join(", ")}, ${username}\nYour final score was ${score}`);
+    alert(
+      `Thank you for playing ${choices.join(
+        ", "
+      )}, ${username}\nYour final score was ${score}`
+    );
   }
 }
 
