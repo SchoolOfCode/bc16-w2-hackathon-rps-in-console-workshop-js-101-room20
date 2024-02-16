@@ -38,6 +38,13 @@ function playRPSWithPrompt(getName) {
     determineWinner(playersChoice, computerChoice, username)
     
     alert(resultMessage);
+
+     
+     const playAgain = confirm("Do you want to play again?");
+     if (playAgain) {
+         playRPSWithPrompt(); 
+         alert("Thanks for playing!");
+     }
 }
 
 
